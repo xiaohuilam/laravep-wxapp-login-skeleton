@@ -30,6 +30,22 @@ composer require xiaohuilam/laravel-wxapp-login -vvv
 php artisan vendor:publish --tag=wechat-login
 ```
 
+# 确保启用了小程序配置
+根据 [Issue#11 这条评论](https://github.com/xiaohuilam/laravel-wxapp-login/issues/11#issuecomment-932718296) ，请确保 `overtrue/laravel-wechat` 的 `config/wechat.php` 启用了小程序的配置
+```php
+[
+    /* * 小程序 */
+    'mini_program' => [
+        'default' => [
+            'app_id' => env('WECHAT_MINI_PROGRAM_APPID', ''),
+            'secret' => env('WECHAT_MINI_PROGRAM_SECRET', ''),
+            'token' => env('WECHAT_MINI_PROGRAM_TOKEN', ''),
+            'aes_key' => env('WECHAT_MINI_PROGRAM_AES_KEY', ''),
+        ],
+    ],
+],
+```
+
 ## 表结构、模型改动
 laravel-wxapp-login 需要在 `users` 表中添加 `openid` 的字段，所以需要运行 [`database/migrations/2019_05_28_060312_users_add_openid.php`](https://github.com/xiaohuilam/laravel-wxapp-login/blob/master/publishes/migrations/2019_05_28_060312_users_add_openid.php)
 ```bash
